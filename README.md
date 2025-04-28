@@ -35,8 +35,8 @@ It is designed to simulate realistic stock trading environments for academic, te
 The script uses the following configuration:
 
 ```python
-CONNECTION_STR = 'Endpoint=sb://itri613-eventhub-project.servicebus.windows.net/;SharedAccessKeyName=ITRI613-EVENTHUB-PROJECT-StreamAnalytics_it_policy;SharedAccessKey=fmqa6FH0SRpDeYc7KLAuddGQKEWyUmFYj+AEhIKuHys=;EntityPath=itri613-eventhub-hub'
-EVENTHUB_NAME = 'itri613-eventhub-hub'
+CONNECTION_STR = ''
+EVENTHUB_NAME = ''
 ```
 
 These settings ensure that events are properly directed to the configured Event Hub namespace and event hub instance.
