@@ -1,67 +1,47 @@
-import json  # To format our data as JSON
-import time  # To add delay (simulate streaming)
-import random  # To generate random values for location, speed, etc.
-from faker import Faker  # To create fake/realistic-looking data
-from datetime import datetime  # To get current time in ISO format
-from azure.eventhub import EventHubProducerClient, EventData  # Azure Event Hub SDK
+import time
+import json
+import random
+from datetime import datetime
+from azure.eventhub import EventHubProducerClient, EventData
 
-# ──────────────────────────────────────────────
-# Azure Event Hub Configuration – update with your actual values
-# ──────────────────────────────────────────────
-CONNECTION_STR = 'Endpoint=sb://<YOUR_NAMESPACE>.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=<YOUR_KEY>'
-EVENTHUB_NAME = '<YOUR_EVENT_HUB_NAME>'
+# Event Hub Configurations
+CONNECTION_STR = 'Endpoint=sb://itri613-eventhub-project.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=rKS5pwvUrH+YE023CbZtxgcWp/xuyB0tz+AEhNwNLQM=;EntityPath=itri613-eventhub-hubsource'
+EVENTHUB_NAME = 'itri613-eventhub-hubsource'
 
-# Create a Faker instance to generate dummy data
-fake = Faker()
-
-# Initialize the Azure Event Hub Producer Client
+# Create a producer client
 producer = EventHubProducerClient.from_connection_string(
     conn_str=CONNECTION_STR,
     eventhub_name=EVENTHUB_NAME
 )
 
-# Function to generate a single data point for a given vehicle
-def generate_data(vehicle_id):
-    return {
-        "vehicle_id": vehicle_id,  # Unique ID of the taxi/vehicle
-        "latitude": round(random.uniform(-34.0, -22.0), 6),  # Latitude within South Africa
-        "longitude": round(random.uniform(18.0, 32.0), 6),  # Longitude within South Africa
-        "speed_kmh": round(random.uniform(0, 120), 2),  # Speed in km/h between 0 and 120
-        "status": random.choice(["en route", "idle", "maintenance"]),  # Random operational status
-        "timestamp": datetime.utcnow().isoformat()  # Current UTC time in ISO format
+# Function to generate dummy stock data
+def generate_stock_data():
+    symbols = ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA"]
+    symbol = random.choice(symbols)
+    price = round(random.uniform(100, 500), 2)
+    volume = random.randint(100, 5000)
+    data = {
+        "symbol": symbol,
+        "price": price,
+        "volume": volume,
+        "timestamp": datetime.utcnow().isoformat()
     }
+    return data
 
-# Function to simulate continuous data streaming and send to Event Hub
-def stream_data(num_vehicles=5, interval=2):
-    # Generate vehicle IDs like Taxi-1, Taxi-2, etc.
-    vehicle_ids = [f"Taxi-{i+1}" for i in range(num_vehicles)]
-
+# Main loop to send data
+def stream_stock_data():
+    print("Starting stock data stream to Event Hub...")
     try:
-        # Loop indefinitely to simulate continuous data streaming
-        while True:
-            # Create a new batch of event data to send
-            event_data_batch = producer.create_batch()
-
-            # Generate and add data for each vehicle to the batch
-            for vehicle_id in vehicle_ids:
-                data = generate_data(vehicle_id)  # Generate dummy vehicle data
-                json_data = json.dumps(data)  # Convert Python dict to JSON string
-                print(json_data)  # Print to console (for debugging/logging)
-                event_data_batch.add(EventData(json_data))  # Add data to the batch
-
-            # Send the entire batch to Azure Event Hub
-            producer.send_batch(event_data_batch)
-
-            # Wait before sending the next batch (simulate real-time data)
-            time.sleep(interval)
-
+        with producer:
+            while True:
+                data = generate_stock_data()
+                event_batch = producer.create_batch()
+                event_batch.add(EventData(json.dumps(data)))
+                producer.send_batch(event_batch)
+                print(f"Sent: {data}")
+                time.sleep(2)  # send every 2 seconds
     except KeyboardInterrupt:
-        print("Streaming stopped by user.")
+        print("Stopped by user.")
 
-    finally:
-        # Always close the producer to release resources
-        producer.close()
-
-# Entry point of the script
 if __name__ == "__main__":
-    stream_data()  # Start streaming data for 5 vehicles, updating every 2 seconds
+    stream_stock_data()
