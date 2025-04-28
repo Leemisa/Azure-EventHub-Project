@@ -1,6 +1,6 @@
 # 🚚 Real-Time Transportation Data Generator
 
-This Python script simulates real-time transportation data from moving vehicles such as taxis, buses, or delivery vans. It is designed to mimic a real-world streaming scenario where data is continuously generated and can be ingested into a stream processing pipeline (e.g., Azure Event Hubs).
+This Python script simulates real-time transportation data from moving vehicles such as taxis, buses, or delivery vans. It is designed to mimic a real-world streaming scenario where data is continuously generated and can be ingested into a stream processing pipeline (in this case Azure Event Hubs).
 
 ## 📜 Description
 
