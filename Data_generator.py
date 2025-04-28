@@ -16,14 +16,33 @@ producer = EventHubProducerClient.from_connection_string(
 
 # Function to generate dummy stock data
 def generate_stock_data():
-    symbols = ["AAPL", "GOOGL", "MSFT", "AMZN", "TSLA"]
-    symbol = random.choice(symbols)
+    symbols_info = {
+        "AAPL": {"company_name": "Apple Inc.", "industry": "Technology", "market_cap": "2.5T"},
+        "GOOGL": {"company_name": "Alphabet Inc.", "industry": "Technology", "market_cap": "1.8T"},
+        "MSFT": {"company_name": "Microsoft Corp.", "industry": "Technology", "market_cap": "2.4T"},
+        "AMZN": {"company_name": "Amazon.com Inc.", "industry": "E-Commerce", "market_cap": "1.6T"},
+        "TSLA": {"company_name": "Tesla Inc.", "industry": "Automotive", "market_cap": "800B"}
+    }
+    
+    symbol = random.choice(list(symbols_info.keys()))
+    company_info = symbols_info[symbol]
+    
     price = round(random.uniform(100, 500), 2)
     volume = random.randint(100, 5000)
+    change_percent = round(random.uniform(-5, 5), 2)  # random % change
+    open_price = round(price * (1 - (change_percent / 100)), 2)  # simulate opening price
+    market_status = random.choice(["Open", "Closed"])
+    
     data = {
         "symbol": symbol,
+        "company_name": company_info["company_name"],
+        "industry": company_info["industry"],
+        "market_cap": company_info["market_cap"],
         "price": price,
+        "open_price": open_price,
+        "change_percent": change_percent,
         "volume": volume,
+        "market_status": market_status,
         "timestamp": datetime.utcnow().isoformat()
     }
     return data
