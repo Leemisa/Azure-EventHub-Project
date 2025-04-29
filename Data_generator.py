@@ -5,7 +5,7 @@ from datetime import datetime
 from azure.eventhub import EventHubProducerClient, EventData
 
 # Event Hub Configurations
-CONNECTION_STR = 'Endpoint=sb://itri613-eventhub-project.servicebus.windows.net/;SharedAccessKeyName=ITRI613-EVENTHUB-PROJECT-StreamAnalytics_it_policy;SharedAccessKey=fmqa6FH0SRpDeYc7KLAuddGQKEWyUmFYj+AEhIKuHys=;EntityPath=itri613-eventhub-hub'
+CONNECTION_STR = 'Endpoint=sb://itri613-eventhub-project.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=rKS5pwvUrH+YE023CbZtxgcWp/xuyB0tz+AEhNwNLQM=;EntityPath=itri613-eventhub-hub'
 EVENTHUB_NAME = 'itri613-eventhub-hub'  
 
 # Create a producer client
