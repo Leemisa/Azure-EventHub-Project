@@ -1,6 +1,7 @@
 import time
 import json
 import random
+import uuid  # For generating unique IDs
 from datetime import datetime
 from azure.eventhub import EventHubProducerClient, EventData
 
@@ -29,11 +30,12 @@ def generate_stock_data():
     
     price = round(random.uniform(100, 500), 2)
     volume = random.randint(100, 5000)
-    change_percent = round(random.uniform(-5, 5), 2)  # random % change
-    open_price = round(price * (1 - (change_percent / 100)), 2)  # simulate opening price
+    change_percent = round(random.uniform(-5, 5), 2)
+    open_price = round(price * (1 - (change_percent / 100)), 2)
     market_status = random.choice(["Open", "Closed"])
     
     data = {
+        "id": str(uuid.uuid4()),  # Unique ID
         "symbol": symbol,
         "company_name": company_info["company_name"],
         "industry": company_info["industry"],
