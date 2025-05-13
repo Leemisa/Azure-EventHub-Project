@@ -11,48 +11,17 @@ EVENTHUB_NAME = 'itri613-eventhub-hub'
 # Create Event Hub producer client
 producer = EventHubProducerClient.from_connection_string(conn_str=CONNECTION_STR, eventhub_name=EVENTHUB_NAME)
 
-# South African company info
+# Global company info
 symbols_info = {
-    "SOL": {
-        "company_name": "Sasol Limited",
-        "industry": "Energy",
-        "sector": "Oil & Gas",
-        "listing_board": "JSE Top 40",
-        "currency": "ZAR",
-        "isin": "ZAE000006896"
+    "AAPL": {
+        "company_name": "Apple Inc.",
+        "industry": "Technology",
+        "sector": "Consumer Electronics",
+        "listing_board": "NASDAQ",
+        "currency": "USD",
+        "isin": "US0378331005"
     },
-    "NPN": {
-        "company_name": "Naspers Limited",
-        "industry": "Media",
-        "sector": "Consumer Services",
-        "listing_board": "JSE Main Board",
-        "currency": "ZAR",
-        "isin": "ZAE000015889"
-    },
-    "AGL": {
-        "company_name": "Anglo American plc",
-        "industry": "Mining",
-        "sector": "Metals & Minerals",
-        "listing_board": "JSE Top 40",
-        "currency": "ZAR",
-        "isin": "GB00B1XZS820"
-    },
-    "MTN": {
-        "company_name": "MTN Group Limited",
-        "industry": "Telecommunications",
-        "sector": "Telecom Services",
-        "listing_board": "JSE Main Board",
-        "currency": "ZAR",
-        "isin": "ZAE000042164"
-    },
-    "SBK": {
-        "company_name": "Standard Bank Group",
-        "industry": "Banking",
-        "sector": "Financials",
-        "listing_board": "JSE Main Board",
-        "currency": "ZAR",
-        "isin": "ZAE000109815"
-    }
+    # Add other companies here
 }
 
 # Function to generate stock data
@@ -60,12 +29,15 @@ def generate_stock_data():
     symbol = random.choice(list(symbols_info.keys()))
     info = symbols_info[symbol]
 
-    price = round(random.uniform(100, 5000), 2)
+    price = round(random.uniform(100, 500), 2)
     change_percent = round(random.uniform(-5, 5), 2)
     open_price = round(price * (1 - change_percent / 100), 2)
-    volume = random.randint(500, 20000)
+    volume = random.randint(100, 5000)
     market_status = random.choice(["Open", "Closed"])
-    timestamp = datetime.utcnow().isoformat()
+
+    # Read the timestamp from the shared file
+    with open('shared_timestamp.txt', 'r') as f:
+        timestamp = f.read().strip()
 
     data = {
         "id": f"{symbol}_{timestamp}",
@@ -89,7 +61,7 @@ def generate_stock_data():
 
 # Stream the data
 def stream_stock_data():
-    print("Starting South African stock data stream to Azure Event Hub...")
+    print("Starting local stock data stream to Azure Event Hub...")
     try:
         with producer:
             while True:

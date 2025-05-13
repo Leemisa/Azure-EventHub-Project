@@ -21,38 +21,7 @@ symbols_info = {
         "currency": "USD",
         "isin": "US0378331005"
     },
-    "GOOGL": {
-        "company_name": "Alphabet Inc.",
-        "industry": "Technology",
-        "sector": "Internet Services",
-        "listing_board": "NASDAQ",
-        "currency": "USD",
-        "isin": "US02079K3059"
-    },
-    "MSFT": {
-        "company_name": "Microsoft Corp.",
-        "industry": "Technology",
-        "sector": "Software",
-        "listing_board": "NASDAQ",
-        "currency": "USD",
-        "isin": "US5949181045"
-    },
-    "AMZN": {
-        "company_name": "Amazon.com Inc.",
-        "industry": "E-Commerce",
-        "sector": "Retail",
-        "listing_board": "NASDAQ",
-        "currency": "USD",
-        "isin": "US0231351067"
-    },
-    "TSLA": {
-        "company_name": "Tesla Inc.",
-        "industry": "Automotive",
-        "sector": "Electric Vehicles",
-        "listing_board": "NASDAQ",
-        "currency": "USD",
-        "isin": "US88160R1014"
-    }
+    # Add other companies here
 }
 
 # Function to generate stock data
@@ -66,6 +35,10 @@ def generate_stock_data():
     volume = random.randint(100, 5000)
     market_status = random.choice(["Open", "Closed"])
     timestamp = datetime.utcnow().isoformat()
+
+    # Write the timestamp to a file so that other script can use it
+    with open('shared_timestamp.txt', 'w') as f:
+        f.write(timestamp)
 
     data = {
         "id": f"{symbol}_{timestamp}",
