@@ -57,7 +57,23 @@ symbols_info = {
         "listing_board": "JSE Main Board",
         "currency": "ZAR",
         "isin": "ZAE000109815"
-    }
+    },
+    "FSR": {
+        "company_name": "FirstRand Limited",
+        "industry": "Banking",
+        "sector": "Financials",
+        "listing_board": "JSE Main Board",
+        "currency": "ZAR",
+        "isin": "ZAE000066304"
+   },
+   "REM": {
+       "company_name": "Remgro Limited",
+       "industry": "Investment",
+       "sector": "Financials",
+       "listing_board": "JSE Main Board",
+       "currency": "ZAR",
+       "isin": "ZAE000026480"
+       }
 }
 
 # Function to generate and publish local stock events

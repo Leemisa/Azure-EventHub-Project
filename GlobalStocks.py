@@ -29,7 +29,54 @@ symbols_info = {
         "currency": "USD",
         "isin": "US0378331005"
     },
-    # Add other companies here
+    "MSFT": {
+        "company_name": "Microsoft Corporation",
+        "industry": "Technology",
+        "sector": "Software",
+        "listing_board": "NASDAQ",
+        "currency": "USD",
+        "isin": "US5949181045"
+    },
+    "GOOG": {
+        "company_name": "Alphabet Inc.",
+        "industry": "Technology",
+        "sector": "Internet Services",
+        "listing_board": "NASDAQ",
+        "currency": "USD",
+        "isin": "US02079K3059"
+    },
+    "AMZN": {
+        "company_name": "Amazon.com, Inc.",
+        "industry": "Consumer Services",
+        "sector": "E-Commerce",
+        "listing_board": "NASDAQ",
+        "currency": "USD",
+        "isin": "US0231351067"
+    },
+    "TSLA": {
+        "company_name": "Tesla, Inc.",
+        "industry": "Automotive",
+        "sector": "Electric Vehicles",
+        "listing_board": "NASDAQ",
+        "currency": "USD",
+        "isin": "US88160R1014"
+    },
+    "NFLX": {
+        "company_name": "Netflix, Inc.",
+        "industry": "Entertainment",
+        "sector": "Streaming",
+        "listing_board": "NASDAQ",
+        "currency": "USD",
+        "isin": "US64110L1061"
+    },
+    "NVDA": {
+        "company_name": "NVIDIA Corporation",
+        "industry": "Semiconductors",
+        "sector": "Technology Hardware",
+        "listing_board": "NASDAQ",
+        "currency": "USD",
+        "isin": "US67066G1040"
+    }
 }
 
 # Function to generate and publish global stock events
