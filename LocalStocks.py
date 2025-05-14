@@ -6,12 +6,9 @@ from azure.eventhub import EventHubProducerClient, EventData
 
 # Azure Event Hub configuration
 CONNECTION_STR = (
-    'Endpoint=sb://itri613-eventhub-project.servicebus.windows.net/;'
-    'SharedAccessKeyName=RootManageSharedAccessKey;'
-    'SharedAccessKey=rKS5pwvUrH+YE023CbZtxgcWp/xuyB0tz+AEhNwNLQM=;'
-    'EntityPath=itri613-eventhub-hub'
+    'Endpoint=sb://itri613-eventhub-project.servicebus.windows.net/;SharedAccessKeyName=ITRI613-EVENTHUB-PROJECT-StreamAnalytics_Lo_policy;SharedAccessKey=uIuFKvxeWkQ7SjHZFFwgA+OaFsani/t2Y+AEhKp9jMk=;EntityPath=localstockseventhubb'
 )
-EVENTHUB_NAME = 'itri613-eventhub-hub'
+EVENTHUB_NAME = 'localstockseventhub'
 
 # Create Event Hub producer client
 producer = EventHubProducerClient.from_connection_string(
